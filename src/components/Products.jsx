@@ -1,17 +1,15 @@
 import React from 'react';
-import { Link, Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
+import ProductItem from './ProductItem';
 
-const Products = ({ productsList = ['1xv63', '45ypq', '8796yr'] }) => {
+import '../styles/Products.css';
+
+const Products = ({ productsList }) => {
 	return (
-		<div>
-			{productsList.map((pr, index) => {
-				return (
-					<Link to={pr}>
-						<div key={index}>{`Product: ${pr}`}</div>
-					</Link>
-				);
+		<div className='products-page'>
+			{productsList.map((product) => {
+				return <ProductItem key={product.id} {...product} />;
 			})}
-			<Outlet />
 		</div>
 	);
 };
