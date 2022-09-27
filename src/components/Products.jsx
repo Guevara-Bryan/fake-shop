@@ -7,6 +7,7 @@ import '../styles/Products.css';
 const Products = ({ productsList }) => {
 	return (
 		<div className='products-page'>
+			<Outlet />
 			{productsList.map((product) => {
 				return <ProductItem key={product.id} {...product} />;
 			})}

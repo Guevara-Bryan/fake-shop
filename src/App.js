@@ -17,7 +17,7 @@ function App() {
 		// Removing the electronics category to keep the items more consistent.
 		const temp = {};
 		data.forEach((element) => {
-			if (element.category !== 'electronics'){
+			if (element.category !== 'electronics') {
 				temp[element.id] = element;
 			}
 		});
@@ -39,7 +39,7 @@ function App() {
 							path='products'
 							element={<Products productsList={Object.values(products)} />}
 						>
-							<Route path=':productId' element={<ProductInfo />} />
+							<Route path=':productId' element={<ProductInfo products={products} />} />
 						</Route>
 						<Route path='about-us' element={<AboutUs />} />
 						<Route path='contact-us' element={<ContactUs />} />

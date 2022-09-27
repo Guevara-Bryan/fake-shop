@@ -4,13 +4,13 @@
     margin: 0;
 }
 
-body {
+body{
     overflow: hidden;
 }
 
 .frame-page {
     display: grid;
-    grid-template-rows: 80px 1fr;
+    grid-template-rows: 10vh 1fr;
     grid-template-columns: 1fr 1fr;
     grid-template-areas: 'page-title navigation''page-content page-content';
     width: 100vw;
@@ -40,4 +40,7 @@ body {
 .content {
     grid-area: page-content;
     background-color: lightslategray;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
 }
