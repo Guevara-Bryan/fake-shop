@@ -12,7 +12,7 @@ const ProductInfo = ({ products }) => {
 			<div className='product-info' onClick={(e) => e.stopPropagation()}>
 				<img src={item.image} alt='' height='300px'/>
 				<p>{item.title}</p>
-				<article>{item.description}</article>
+				<article>item.description</article>
 				<p>{'$' + item.price}</p>
 				<p>{'Rating: ' + item.rating.rate}</p>
 				<button>Add to Cart</button>
