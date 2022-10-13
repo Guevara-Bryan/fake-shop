@@ -2,8 +2,13 @@ import React from 'react';
 import { Link, Outlet } from 'react-router-dom';
 
 import '../styles/Frame.css';
+import '../styles/Cart.css';
+
+import { shopStateContext } from '../App';
 
 const Frame = () => {
+	const [cartVisibility, setCartVisibility] = React.useState(false);
+	const { cart } = React.useContext(shopStateContext);
 	return (
 		<div className='frame-page'>
 			<div className='title'>
@@ -13,7 +18,7 @@ const Frame = () => {
 				<Link to='/'>Home</Link>
 				<Link to='products'>Products</Link>
 				<Link to='about-us'>About Us</Link>
-				<Link to='contact-us'>Contact Us</Link>
+				<Link to='Cart'>{`Cart ${cart.count > 0 ? ': ' + cart.count : ''}`}</Link>
 			</nav>
 			<div className='content'>
 				<Outlet />

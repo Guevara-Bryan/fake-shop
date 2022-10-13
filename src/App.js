@@ -3,13 +3,17 @@ import Frame from './components/Frame';
 import Home from './components/Home';
 import Products from './components/Products';
 import AboutUs from './components/AboutUs';
-import ContactUs from './components/ContactUs';
 import ProductInfo from './components/ProductInfo';
+import Cart from './components/Cart';
+import { useCart } from './utils';
 
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+export const shopStateContext = React.createContext();
 
 function App() {
 	const [products, setProducts] = React.useState({});
+	const [isProductInfoVisible, setIsProductInfoVisible] = React.useState(false);
+	const cart = useCart();
 
 	async function fetchProducts() {
 		const response = await fetch(`${process.env.REACT_APP_SHOP_URL}/products`);
@@ -22,7 +26,6 @@ function App() {
 			}
 		});
 		setProducts(temp);
-		console.log(temp);
 	}
 
 	React.useEffect(() => {
@@ -31,21 +34,26 @@ function App() {
 
 	return (
 		<div className='app'>
-			<Router>
-				<Routes>
-					<Route path='/' element={<Frame />}>
-						<Route index element={<Home />} />
-						<Route
-							path='products'
-							element={<Products productsList={Object.values(products)} />}
-						>
-							<Route path=':productId' element={<ProductInfo products={products} />} />
+			<shopStateContext.Provider
+				value={{
+					cart,
+					products,
+					isProductInfoVisible,
+					setIsProductInfoVisible,
+				}}>
+				<BrowserRouter>
+					<Routes>
+						<Route path='/' element={<Frame />}>
+							<Route index element={<Home />} />
+							<Route path='products' element={<Products />}>
+								<Route path=':productId' element={<ProductInfo />} />
+							</Route>
+							<Route path='about-us' element={<AboutUs />} />
+							<Route path='cart' element={<Cart />} />
 						</Route>
-						<Route path='about-us' element={<AboutUs />} />
-						<Route path='contact-us' element={<ContactUs />} />
-					</Route>
-				</Routes>
-			</Router>
+					</Routes>
+				</BrowserRouter>
+			</shopStateContext.Provider>
 		</div>
 	);
 }

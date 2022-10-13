@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import '../styles/ProductItem.css';
 import { shopStateContext } from '../App';
 
-const ProductItem = ({ id, title, price, image }) => {
+const ProductItemOnCart = ({ id, title, price, image }) => {
 	const MAX_TEXT_LENGTH = 55;
 	const { cart, setIsProductInfoVisible } = React.useContext(shopStateContext);
 
@@ -13,9 +13,12 @@ const ProductItem = ({ id, title, price, image }) => {
 			<div className='product-item__image-frame'>
 				<img className='product-item__image' src={image} alt='' />
 			</div>
-			<Link to={`/products/${id}`} className='product-item__title' onClick={()=>{
-				setIsProductInfoVisible(true);
-			}}>
+			<Link
+				to={`/products/${id}`}
+				className='product-item__title'
+				onClick={() => {
+					setIsProductInfoVisible(true);
+				}}>
 				<p>
 					{title.length > MAX_TEXT_LENGTH
 						? title.slice(0, MAX_TEXT_LENGTH) + ' ...'
@@ -26,14 +29,22 @@ const ProductItem = ({ id, title, price, image }) => {
 				<p>{'$' + price.toFixed(2)}</p>
 			</div>
 			<button
-				className='product-item__button'
+				onClick={() => {
+					cart.updateItemCount(id, -1);
+				}}>
+				-
+			</button>
+			<div>{cart.getItem(id)}</div>
+			<button
 				onClick={() => {
 					cart.updateItemCount(id);
 				}}>
-				Add to Cart
+				+
 			</button>
+      <button onClick={()=>{
+        cart.deleteItem(id);
+      }}>Delete</button>
 		</div>
 	);
 };
-
-export default ProductItem;
+export default ProductItemOnCart;

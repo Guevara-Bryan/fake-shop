@@ -4,10 +4,13 @@ import ProductItem from './ProductItem';
 
 import '../styles/Products.css';
 
-const Products = ({ productsList }) => {
+import { shopStateContext } from '../App';
+
+const Products = () => {
+	const {products} = React.useContext(shopStateContext);
 	return (
 		<div className='products-page'>
-			{productsList.map((product) => {
+			{Object.values(products).map((product) => {
 				return <ProductItem key={product.id} {...product} />;
 			})}
 			<Outlet />
