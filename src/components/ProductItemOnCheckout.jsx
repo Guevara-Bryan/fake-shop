@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 import '../styles/ProductItem.css';
 import { shopStateContext } from '../App';
 
-const ProductItemOnCart = ({ id, title, price, image }) => {
+const ProductItemOnCheckout = ({ id, title, price, image }) => {
 	const MAX_TEXT_LENGTH = 55;
-	const { cart, setIsProductInfoVisible } = React.useContext(shopStateContext);
+	const { cart } = React.useContext(shopStateContext);
 
 	return (
 		<div className='product-item'>
@@ -14,11 +14,8 @@ const ProductItemOnCart = ({ id, title, price, image }) => {
 				<img className='product-item__image' src={image} alt='' />
 			</div>
 			<Link
-				to={`/products/${id}`}
-				className='product-item__title'
-				onClick={() => {
-					setIsProductInfoVisible(true);
-				}}>
+				to={`/product-info/${id}`}
+				className='product-item__title'>
 				<p>
 					{title.length > MAX_TEXT_LENGTH
 						? title.slice(0, MAX_TEXT_LENGTH) + ' ...'
@@ -50,4 +47,4 @@ const ProductItemOnCart = ({ id, title, price, image }) => {
 		</div>
 	);
 };
-export default ProductItemOnCart;
+export default ProductItemOnCheckout;

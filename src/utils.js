@@ -3,6 +3,10 @@ import { useEffect, useState } from 'react';
 const useCart = () => {
 	const [cart, setCart] = useState({});
 
+	useEffect(() => {
+		console.log(cart);
+	}, [cart]);
+
 	const updateItemCount = (itemId, count = 1) => {
 		setCart((prev) => {
 			const { [itemId]: quantity, ...rest } = prev;
@@ -54,7 +58,6 @@ const useProducts = () => {
 		try {
 			const res = await fetch(`${process.env.REACT_APP_SHOP_URL}/products`);
 			const data = await res.json();
-			console.log(data);
 			setProducts(data);
 		} catch (err) {
 			console.log(err);

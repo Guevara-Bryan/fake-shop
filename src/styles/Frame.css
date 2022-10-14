@@ -9,30 +9,33 @@ body{
 }
 
 .frame-page {
-    display: grid;
-    grid-template-rows: 10vh 1fr;
-    grid-template-columns: 1fr 1fr;
-    grid-template-areas: 'page-title navigation''page-content page-content';
+    display: flex;
+    flex-direction: column;
     width: 100vw;
     height: 100vh;
     background-color: lightblue;
+
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.frame-header{ 
+    height: 7%;
+    display: grid;
+    grid-template-columns: 3fr 2fr 0.5fr;
 }
 
 .title {
-    grid-area: page-title;
-    background-color: lightcoral;
-    display: flex;
-    align-items: center;
-    padding-left: 20px;
+    background-color: gray;
+    padding: 10px 20px
 }
 
 .nav-bar {
-    grid-area: navigation;
-    background-color: lightgreen;
+    background-color: gray;
     display: flex;
     align-items: center;
     justify-content: space-around;
-    font-size: 16pt;
+    font-size: 1.45rem;
 }.nav-bar > a{
     text-decoration: none;
 }
@@ -41,6 +44,5 @@ body{
     grid-area: page-content;
     background-color: lightslategray;
     width: 100%;
-    height: 100%;
-    overflow: hidden;
+    flex-basis: 100%;
 }

@@ -13,7 +13,7 @@ const ProductItem = ({ id, title, price, image }) => {
 			<div className='product-item__image-frame'>
 				<img className='product-item__image' src={image} alt='' />
 			</div>
-			<Link to={`/products/${id}`} className='product-item__title'>
+			<Link to={`/product-info/${id}`} className='product-item__title'>
 				<p>
 					{title.length > MAX_TEXT_LENGTH
 						? title.slice(0, MAX_TEXT_LENGTH) + ' ...'

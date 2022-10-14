@@ -1,21 +1,49 @@
 import React from 'react';
-import { shopStateContext } from '../App';
-import ProductItemOnCart from './ProductItemOnCart';
+import { useNavigate } from 'react-router-dom';
 
 import '../styles/Cart.css';
+import { shopStateContext } from '../App';
 
-const Cart = () => {
+const Cart = ({ isVisible, setIsVisible }) => {
 	const { cart, products } = React.useContext(shopStateContext);
-	return (
-		<div className='cart-container' onClick={(e) => e.stopPropagation()}>
-			<div className='cart-header'>Cart</div>
-			<div className='cart-item__list'>
-				{cart.getAllItems().map((id) => {
-					return <ProductItemOnCart {...products.getProduct(id)}/>
-				})}
-			</div>
-			<div className='cart-summary'>
+	const navigate = useNavigate();
 
+	return (
+		<div className={isVisible ? 'cart' : 'cart-remove'}>
+			<div className='cart-content'>
+				<div className='cart-header'>
+					<h1>Cart</h1>
+					<button
+						onClick={() => {
+							setIsVisible(false);
+						}}>
+						Close Cart
+					</button>
+				</div>
+				<div className='cart-products__list'>
+					{cart.getAllItems().map(([id, qt]) => {
+						const productObj = products.getProduct(id);
+						return (
+							<div key={productObj.id}>{`${productObj.title} | ${qt}`}</div>
+						);
+					})}
+				</div>
+				<div className='cart-summary'>
+					<p>{`Total: ${cart
+						.getAllItems()
+						.reduce(
+							(acc, [id, qt]) => (acc += products.getProduct(id).price * qt),
+							0
+						)
+						.toFixed(2)}`}</p>
+					<button
+						onClick={() => {
+							navigate('checkout');
+              setIsVisible(false);
+						}}>
+						Checkout
+					</button>
+				</div>
 			</div>
 		</div>
 	);

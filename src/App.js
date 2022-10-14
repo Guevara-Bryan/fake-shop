@@ -4,7 +4,7 @@ import Home from './components/Home';
 import Products from './components/Products';
 import AboutUs from './components/AboutUs';
 import ProductInfo from './components/ProductInfo';
-import Cart from './components/Cart';
+import Checkout from './components/Checkout';
 import { useCart, useProducts } from './utils';
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
@@ -16,16 +16,16 @@ function App() {
 
 	return (
 		<div className='app'>
-			<shopStateContext.Provider value={{ cart, products, }}>
+			<shopStateContext.Provider value={{ cart, products }}>
 				<BrowserRouter>
 					<Routes>
 						<Route path='/' element={<Frame />}>
 							<Route index element={<Home />} />
-							<Route path='products' element={<Products />}>
-								<Route path=':productId' element={<ProductInfo />} />
-							</Route>
+							<Route path='products' element={<Products />} />
 							<Route path='about-us' element={<AboutUs />} />
-							<Route path='cart' element={<Cart />} />
+							<Route path='checkout' element={<Checkout />} />
+							<Route path='product-info/:productId' element={<ProductInfo />} />
+							<Route path='*' element={<h1>PAGE DOES NOT EXIST</h1>} />
 						</Route>
 					</Routes>
 				</BrowserRouter>
