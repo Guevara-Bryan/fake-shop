@@ -10,7 +10,7 @@ const Products = () => {
 	const {products} = React.useContext(shopStateContext);
 	return (
 		<div className='products-page'>
-			{Object.values(products).map((product) => {
+			{products.getAllProducts().map((product) => {
 				return <ProductItem key={product.id} {...product} />;
 			})}
 			<Outlet />

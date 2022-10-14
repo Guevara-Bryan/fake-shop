@@ -41,9 +41,12 @@ const ProductItemOnCart = ({ id, title, price, image }) => {
 				}}>
 				+
 			</button>
-      <button onClick={()=>{
-        cart.deleteItem(id);
-      }}>Delete</button>
+			<button
+				onClick={() => {
+					cart.deleteItem(id);
+				}}>
+				Delete
+			</button>
 		</div>
 	);
 };

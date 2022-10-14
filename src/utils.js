@@ -1,11 +1,8 @@
 import { useEffect, useState } from 'react';
 
-export const useCart = () => {
+const useCart = () => {
 	const [cart, setCart] = useState({});
 
-	useEffect(() => {
-		console.log(cart);
-	}, [cart]);
 	const updateItemCount = (itemId, count = 1) => {
 		setCart((prev) => {
 			const { [itemId]: quantity, ...rest } = prev;
@@ -20,6 +17,7 @@ export const useCart = () => {
 			deleteItem(itemId);
 		});
 	};
+
 	const deleteItem = (itemId) => {
 		if (!cart.hasOwnProperty(itemId)) {
 			return;
@@ -45,6 +43,41 @@ export const useCart = () => {
 		deleteItem,
 		getAllItems,
 		getItem,
-		count: Object.values(cart).reduce((acc=0, cur) => acc + cur, 0),
+		count: Object.values(cart).reduce((acc = 0, cur) => acc + cur, 0),
 	};
 };
+
+const useProducts = () => {
+	const [products, setProducts] = useState([]);
+
+	const fetchAllProducts = async () => {
+		try {
+			const res = await fetch(`${process.env.REACT_APP_SHOP_URL}/products`);
+			const data = await res.json();
+			console.log(data);
+			setProducts(data);
+		} catch (err) {
+			console.log(err);
+		}
+	};
+
+	useEffect(() => {
+		fetchAllProducts();
+	}, []);
+
+	const getAllProducts = () => {
+		return [...products];
+	};
+
+	const getProduct = (id) => {
+		const res = products.find((x) => x.id === parseInt(id));
+		return res ? { ...res } : undefined;
+	};
+
+	return {
+		getAllProducts,
+		getProduct,
+	};
+};
+
+export { useCart, useProducts };
