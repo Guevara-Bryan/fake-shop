@@ -3,10 +3,6 @@ import { useEffect, useState } from 'react';
 const useCart = () => {
 	const [cart, setCart] = useState({});
 
-	useEffect(() => {
-		console.log(cart);
-	}, [cart]);
-
 	const updateItemCount = (itemId, count = 1) => {
 		setCart((prev) => {
 			const { [itemId]: quantity, ...rest } = prev;
@@ -18,7 +14,7 @@ const useCart = () => {
 			if (res > 0) {
 				return { ...rest, [itemId]: res };
 			}
-			deleteItem(itemId);
+			return rest; // item count went below 0 so item is deleted.
 		});
 	};
 

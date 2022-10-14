@@ -24,7 +24,7 @@ const Frame = () => {
 					onClick={() => {
 						setIsCartVisible(true);
 					}}>
-					Cart
+					{`Cart : ${cart.count}`}
 				</button>
 			</div>
 			<Cart isVisible={isCartVisible} setIsVisible={setIsCartVisible} />

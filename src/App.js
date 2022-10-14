@@ -25,8 +25,8 @@ function App() {
 							<Route path='about-us' element={<AboutUs />} />
 							<Route path='checkout' element={<Checkout />} />
 							<Route path='product-info/:productId' element={<ProductInfo />} />
-							<Route path='*' element={<h1>PAGE DOES NOT EXIST</h1>} />
 						</Route>
+						<Route path='*' element={<h1>PAGE DOES NOT EXIST</h1>} />
 					</Routes>
 				</BrowserRouter>
 			</shopStateContext.Provider>
