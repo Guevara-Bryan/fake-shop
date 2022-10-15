@@ -6,11 +6,30 @@ import { shopStateContext } from '../App';
 
 const Cart = ({ isVisible, setIsVisible }) => {
 	const { cart, products } = React.useContext(shopStateContext);
+	const cartBackgroundRef = React.useRef();
+	const cartRef = React.useRef();
 	const navigate = useNavigate();
 
+	React.useEffect(() => {
+		if (isVisible) {
+			cartBackgroundRef.current.className = 'cart';
+			cartBackgroundRef.current.style.animation = 'fade-in 500ms';
+			cartRef.current.className = 'cart-content';
+			cartRef.current.style.animation = 'slide-from-right 500ms';
+		} else {
+			if (cartBackgroundRef.current.className !== 'cart-remove') {
+				cartBackgroundRef.current.style.animation = 'fade-out 500ms';
+				cartRef.current.style.animation = 'slide-to-right 500ms';
+				setTimeout(() => {
+					cartBackgroundRef.current.className = 'cart-remove';
+				}, 500);
+			}
+		}
+	}, [isVisible]);
+
 	return (
-		<div className={isVisible ? 'cart' : 'cart-remove'}>
-			<div className='cart-content'>
+		<div ref={cartBackgroundRef} className='cart-remove'>
+			<div ref={cartRef}>
 				<div className='cart-header'>
 					<h1>Cart</h1>
 					<button
@@ -38,8 +57,10 @@ const Cart = ({ isVisible, setIsVisible }) => {
 						.toFixed(2)}`}</p>
 					<button
 						onClick={() => {
-							navigate('checkout');
-              setIsVisible(false);
+							setIsVisible(false);
+							setTimeout(() => {
+								navigate('/checkout');
+							});
 						}}>
 						Checkout
 					</button>
