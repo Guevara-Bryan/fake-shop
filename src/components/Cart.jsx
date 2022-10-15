@@ -1,25 +1,25 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 
 import '../styles/Cart.css';
 import { shopStateContext } from '../App';
+import ProductCartView from './ProductCartView';
 
 const Cart = ({ isVisible, setIsVisible }) => {
 	const { cart, products } = React.useContext(shopStateContext);
 	const cartBackgroundRef = React.useRef();
 	const cartRef = React.useRef();
-	const navigate = useNavigate();
+	const ANIMATION_DURATION = 500; // in ms
 
 	React.useEffect(() => {
 		if (isVisible) {
 			cartBackgroundRef.current.className = 'cart';
-			cartBackgroundRef.current.style.animation = 'fade-in 500ms';
+			cartBackgroundRef.current.style.animation = `fade-in ${ANIMATION_DURATION}ms`;
 			cartRef.current.className = 'cart-content';
-			cartRef.current.style.animation = 'slide-from-right 500ms';
+			cartRef.current.style.animation = `slide-from-right ${ANIMATION_DURATION}ms`;
 		} else {
 			if (cartBackgroundRef.current.className !== 'cart-remove') {
-				cartBackgroundRef.current.style.animation = 'fade-out 500ms';
-				cartRef.current.style.animation = 'slide-to-right 500ms';
+				cartBackgroundRef.current.style.animation = `fade-out ${ANIMATION_DURATION}ms`;
+				cartRef.current.style.animation = `slide-to-right ${ANIMATION_DURATION}ms`;
 				setTimeout(() => {
 					cartBackgroundRef.current.className = 'cart-remove';
 				}, 500);
@@ -42,9 +42,9 @@ const Cart = ({ isVisible, setIsVisible }) => {
 				<div className='cart-products__list'>
 					{cart.getAllItems().map(([id, qt]) => {
 						const productObj = products.getProduct(id);
-						return (
-							<div key={productObj.id}>{`${productObj.title} | ${qt}`}</div>
-						);
+            productObj.quantity = qt;
+            productObj.setIsVisible = setIsVisible;
+						return <ProductCartView key={id} {...productObj} />;
 					})}
 				</div>
 				<div className='cart-summary'>
@@ -55,15 +55,7 @@ const Cart = ({ isVisible, setIsVisible }) => {
 							0
 						)
 						.toFixed(2)}`}</p>
-					<button
-						onClick={() => {
-							setIsVisible(false);
-							setTimeout(() => {
-								navigate('/checkout');
-							});
-						}}>
-						Checkout
-					</button>
+					<button>Checkout</button>
 				</div>
 			</div>
 		</div>

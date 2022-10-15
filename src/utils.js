@@ -79,4 +79,8 @@ const useProducts = () => {
 	};
 };
 
-export { useCart, useProducts };
+const shortenText = (text, maxSize, textEnd = '...') => {
+	return text.length > maxSize ? text.slice(0, maxSize) + textEnd : text;
+};
+
+export { useCart, useProducts, shortenText };

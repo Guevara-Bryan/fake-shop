@@ -1,11 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
+import { shortenText } from '../utils';
 import '../styles/ProductItem.css';
 import { shopStateContext } from '../App';
 
 const ProductItem = ({ id, title, price, image }) => {
-	const MAX_TEXT_LENGTH = 55;
 	const { cart } = React.useContext(shopStateContext);
 
 	return (
@@ -14,11 +13,7 @@ const ProductItem = ({ id, title, price, image }) => {
 				<img className='product-item__image' src={image} alt='' />
 			</div>
 			<Link to={`/product-info/${id}`} className='product-item__title'>
-				<p>
-					{title.length > MAX_TEXT_LENGTH
-						? title.slice(0, MAX_TEXT_LENGTH) + ' ...'
-						: title}
-				</p>
+				<p>{shortenText(title, 50)}</p>
 			</Link>
 			<div className='product-item__price'>
 				<p>{'$' + price.toFixed(2)}</p>

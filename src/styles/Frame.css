@@ -45,4 +45,5 @@ body{
     background-color: lightslategray;
     width: 100%;
     flex-basis: 100%;
+    overflow: hidden;
 }
