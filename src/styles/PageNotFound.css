@@ -1,0 +1,14 @@
+.page-not-found {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  background-color: var(--background-color);
+}
+.page-not-found__home-button{
+  padding: 30px;
+  font-size: 1.5rem;
+  border-radius: 20px;
+}
