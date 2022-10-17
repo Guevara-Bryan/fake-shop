@@ -6,7 +6,7 @@ import AboutUs from './components/AboutUs';
 import ProductInfo from './components/ProductInfo';
 import { useCart, useProducts } from './utils';
 
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 export const shopStateContext = React.createContext();
 
 function App() {
@@ -23,6 +23,15 @@ function App() {
 							<Route path='about-us' element={<AboutUs />} />
 							<Route path='product-info/:productId' element={<ProductInfo />} />
 						</Route>
+						<Route
+							path='*'
+							element={
+								<div>
+									<h1>404 - PAGE DOES NOT EXIST</h1>
+									<Link to='/'>Back to home page</Link>
+								</div>
+							}
+						/>
 					</Routes>
 				</BrowserRouter>
 			</shopStateContext.Provider>
