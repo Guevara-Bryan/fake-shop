@@ -1,4 +1,4 @@
-.product-info{
+.product-info {
     width: 100%;
     height: 100%;
     background-color: white;
@@ -7,4 +7,11 @@
     display: grid;
     justify-items: center;
     align-items: center;
+
+    animation: slide-from-bottom var(--animation-duration);
+}
+
+.product-info__button {
+    padding: 15px;
+    border-radius: 10px;
 }

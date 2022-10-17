@@ -19,10 +19,11 @@ const ProductItem = ({ id, title, price, image }) => {
 				<p>{'$' + price.toFixed(2)}</p>
 			</div>
 			<button
-				className='product-item__button'
+				className='product-item__button button'
 				onClick={() => {
 					cart.updateItemCount(id);
-				}}>
+				}}
+			>
 				Add to Cart
 			</button>
 		</div>

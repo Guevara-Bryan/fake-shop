@@ -10,6 +10,7 @@ const Cart = ({ isVisible, setIsVisible }) => {
 	const cartRef = React.useRef();
 	const ANIMATION_DURATION = 500; // in ms
 
+	// Adds the animation to the cart before removing it from the dom.
 	React.useEffect(() => {
 		if (isVisible) {
 			cartBackgroundRef.current.className = 'cart';
@@ -33,27 +34,26 @@ const Cart = ({ isVisible, setIsVisible }) => {
 				<div className='cart-header'>
 					<h1>Cart</h1>
 					<button
+            class='cart-header__exit-button button'
 						onClick={() => {
 							setIsVisible(false);
-						}}>
+						}}
+					>
 						Close Cart
 					</button>
 				</div>
 				<div className='cart-products__list'>
 					{cart.getAllItems().map(([id, qt]) => {
 						const productObj = products.getProduct(id);
-            productObj.quantity = qt;
-            productObj.setIsVisible = setIsVisible;
+						productObj.quantity = qt;
+						productObj.setIsVisible = setIsVisible;
 						return <ProductCartView key={id} {...productObj} />;
 					})}
 				</div>
 				<div className='cart-summary'>
 					<p>{`Total: ${cart
 						.getAllItems()
-						.reduce(
-							(acc, [id, qt]) => (acc += products.getProduct(id).price * qt),
-							0
-						)
+						.reduce((acc, [id, qt]) => (acc += products.getProduct(id).price * qt), 0)
 						.toFixed(2)}`}</p>
 					<button>Checkout</button>
 				</div>

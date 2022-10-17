@@ -19,6 +19,7 @@ const ProductInfo = () => {
 					<p>{'$' + item.price}</p>
 					<p>{'Rating: ' + item.rating.rate}</p>
 					<button
+						className='product-info__button button'
 						onClick={() => {
 							cart.updateItemCount(item.id);
 						}}>
