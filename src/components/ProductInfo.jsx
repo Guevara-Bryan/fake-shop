@@ -8,22 +8,24 @@ const ProductInfo = () => {
 	const { cart, products } = React.useContext(shopStateContext);
 	const { productId } = useParams();
 	const item = products.getProduct(productId);
+	const itemCount = cart.getItem(productId);
 
 	return (
 		<div className='product-info' onClick={(e) => e.stopPropagation()}>
 			{item ? (
 				<>
-					<img src={item.image} alt='' height='300px' />
-					<p>{item.title}</p>
-					<article>{item.description}</article>
-					<p>{'$' + item.price}</p>
-					<p>{'Rating: ' + item.rating.rate}</p>
+					<img src={item.image} alt='' />
+					<h1>{item.title}</h1>
+					<article className='product-info__description'>{item.description}</article>
+					<p>{'Price: $' + item.price}</p>
+					<p>{'Rating: ' + item.rating.rate + ' / 5'}</p>
 					<button
 						className='product-info__button button'
 						onClick={() => {
 							cart.updateItemCount(item.id);
-						}}>
-						Add to Cart
+						}}
+					>
+						{`Add to cart ${itemCount > 0 ? '(' + itemCount + ')' : ''}`}
 					</button>
 				</>
 			) : (

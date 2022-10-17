@@ -1,6 +1,8 @@
 import React from 'react';
 
 import '../styles/Cart.css';
+import shoppingBag from '../images/shopping-bag.png';
+
 import { shopStateContext } from '../App';
 import ProductCartView from './ProductCartView';
 
@@ -34,7 +36,7 @@ const Cart = ({ isVisible, setIsVisible }) => {
 				<div className='cart-header'>
 					<h1>Cart</h1>
 					<button
-            class='cart-header__exit-button button'
+						className='cart-header__exit-button button'
 						onClick={() => {
 							setIsVisible(false);
 						}}
@@ -42,20 +44,26 @@ const Cart = ({ isVisible, setIsVisible }) => {
 						Close Cart
 					</button>
 				</div>
-				<div className='cart-products__list'>
-					{cart.getAllItems().map(([id, qt]) => {
-						const productObj = products.getProduct(id);
-						productObj.quantity = qt;
-						productObj.setIsVisible = setIsVisible;
-						return <ProductCartView key={id} {...productObj} />;
-					})}
+				<div className='cart__products-list'>
+					{cart.count > 0 ? (
+						cart.getAllItems().map(([id, qt]) => {
+							const productObj = products.getProduct(id);
+							productObj.quantity = qt;
+							productObj.setIsVisible = setIsVisible;
+							return <ProductCartView key={id} {...productObj} />;
+						})
+					) : (
+						<div className='cart__empty-display'>
+							<img src={shoppingBag} alt='' />
+						</div>
+					)}
 				</div>
-				<div className='cart-summary'>
+				<div className='cart__summary'>
 					<p>{`Total: ${cart
 						.getAllItems()
 						.reduce((acc, [id, qt]) => (acc += products.getProduct(id).price * qt), 0)
 						.toFixed(2)}`}</p>
-					<button>Checkout</button>
+					<button className='cart__checkout-button button'>Checkout</button>
 				</div>
 			</div>
 		</div>

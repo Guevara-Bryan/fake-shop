@@ -27,7 +27,7 @@
 
     border-radius: 20px;
     background-color: white;
-    box-shadow: 3px 3px 7px 3px #c9c8c1;
+    border: 2px solid var(--header-color);
 }
 
 .product-item__image {
@@ -49,17 +49,21 @@
     font-weight: 600;
 }
 
+.product-item__title>p:hover {
+    text-decoration: underline;
+}
+
 .product-item__price {
     grid-area: product-price;
     display: flex;
     align-items: center;
-    justify-content: space-between;
     font-size: 1.17rem;
     font-weight: 600;
 }
 
 .product-item__button {
     grid-area: product-button;
-    padding: 5px;
+    padding: 10px 5px;
     border-radius: 10px;
+    font-size: 1.1rem;
 }
